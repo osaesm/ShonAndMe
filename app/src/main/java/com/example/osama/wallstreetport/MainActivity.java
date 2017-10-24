@@ -1,16 +1,18 @@
 package com.example.osama.wallstreetport;
 
+import android.graphics.Color;
+import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,13 +36,16 @@ public class MainActivity extends AppCompatActivity {
     private TextView cashView;
     private TextView cashPerDayView;
 
-    private Timer timer;
-
     private final DecimalFormat df = new DecimalFormat("0.00");
 
     private Handler handler;
 
+    private Runnable runnable;
+
     private final int frames = 30;
+
+    private final int full = 255;
+    private final int part = 204;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,42 +75,30 @@ public class MainActivity extends AppCompatActivity {
         cashView.setText(Double.toString(cash));
         cashPerDayView.setText(Double.toString(cashPerDay.getMoneyPerSec()));
 
-        handler = new Handler() {
-            @Override
-            public void publish(LogRecord record) {
+        handler = new Handler();
 
-            }
-
-            @Override
-            public void flush() {
-
-            }
-
-            @Override
-            public void close() throws SecurityException {
-
-            }
-        };
-        timer = new Timer();
-
-        timer.scheduleAtFixedRate(new TimerTask() {
+        runnable = new Runnable() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        cash += (cashPerDay.getMoneyPerSec() / frames);
-                        cash = ((int) (cash * 100)) / 100.0;
-                        cashView.setText("Cash: $" + df.format(cash));
-                        cashPerDayView.setText("$" + df.format(cashPerDay.getMoneyPerSec()) + "/day");
-                    }
-                });
+                cash += (cashPerDay.getMoneyPerSec()/frames);
+                cash = Double.parseDouble(df.format(cash));
+                cashView.setText("Cash: $" + df.format(cash));
+                cashPerDayView.setText("$" + df.format(cashPerDay.getMoneyPerSec()) + "/day");
+
+                if(LC.getPrice() >= cash){
+                    LCButton.setBackgroundColor(Color.rgb(part, full, part));
+                }
+                else{
+                    LCButton.setBackgroundColor(Color.rgb(full, part, part));
+                }
+
+                handler.postDelayed(this, 1000/frames);
             }
-        }, 0, 1000/frames);
+        };
 
-//        timer.scheduleAtFixedRate(task, 0, 1000 / 30);
+        handler.postDelayed(runnable, 1000);
 
-/*        LCButton.setOnClickListener(new View.OnClickListener(){
+        LCButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
@@ -123,22 +116,103 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-*/
-    }
 
-    public void LSBuy(View view){
-        double price = LC.getPrice();
-        if(cash < price){
+        LSButton.setOnClickListener(new View.OnClickListener(){
 
-        }
-        else{
-            cash -= price;
-            LC.getItems();
-            LC.changePrice();
-            cashPerDay.setMoneyPerSec();
-            cashView.setText(df.format(cash));
-            cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
-        }
+            @Override
+            public void onClick(View V){
+                double price = LS.getPrice();
+                if(cash < price){
+
+                }
+                else{
+                    cash -= price;
+                    LS.getItems();
+                    LS.changePrice();
+                    cashPerDay.setMoneyPerSec();
+                    cashView.setText(df.format(cash));
+                    cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
+                }
+            }
+        });
+
+        SBButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                double price = SB.getPrice();
+                if(cash < price){
+
+                }
+                else{
+                    cash -= price;
+                    SB.getItems();
+                    SB.changePrice();
+                    cashPerDay.setMoneyPerSec();
+                    cashView.setText(df.format(cash));
+                    cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
+                }
+            }
+        });
+
+        CSButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                double price = CS.getPrice();
+                if(cash < price){
+
+                }
+                else{
+                    cash -= price;
+                    CS.getItems();
+                    CS.changePrice();
+                    cashPerDay.setMoneyPerSec();
+                    cashView.setText(df.format(cash));
+                    cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
+                }
+            }
+        });
+
+        sButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                double price = S.getPrice();
+                if(cash < price){
+
+                }
+                else{
+                    cash -= price;
+                    S.getItems();
+                    S.changePrice();
+                    cashPerDay.setMoneyPerSec();
+                    cashView.setText(df.format(cash));
+                    cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
+                }
+            }
+        });
+
+        HFButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                double price = HF.getPrice();
+                if(cash < price){
+
+                }
+                else{
+                    cash -= price;
+                    HF.getItems();
+                    HF.changePrice();
+                    cashPerDay.setMoneyPerSec();
+                    cashView.setText(df.format(cash));
+                    cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
+                }
+            }
+        });
+
+
     }
 
     public class Earnings {
@@ -182,5 +256,20 @@ public class MainActivity extends AppCompatActivity {
             cashPerDayView.setText("$" + df.format(cashPerDay.getMoneyPerSec()) + "/day");
         }
     };
+
+    public void Buy(){
+        double price = LC.getPrice();
+        if(cash < price){
+
+        }
+        else{
+            cash -= price;
+            LC.getItems();
+            LC.changePrice();
+            cashPerDay.setMoneyPerSec();
+            cashView.setText(df.format(cash));
+            cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
+        }
+    }
 
 }
