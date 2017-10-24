@@ -9,6 +9,8 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
 
     private final DecimalFormat df = new DecimalFormat("0.00");
+
+    private Handler handler;
+
+    private final int frames = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +70,43 @@ public class MainActivity extends AppCompatActivity {
         cashView.setText(Double.toString(cash));
         cashPerDayView.setText(Double.toString(cashPerDay.getMoneyPerSec()));
 
-//        timer = new Timer();
+        handler = new Handler() {
+            @Override
+            public void publish(LogRecord record) {
+
+            }
+
+            @Override
+            public void flush() {
+
+            }
+
+            @Override
+            public void close() throws SecurityException {
+
+            }
+        };
+        timer = new Timer();
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        cash += (cashPerDay.getMoneyPerSec() / frames);
+                        cash = ((int) (cash * 100)) / 100.0;
+                        cashView.setText("Cash: $" + df.format(cash));
+                        cashPerDayView.setText("$" + df.format(cashPerDay.getMoneyPerSec()) + "/day");
+                    }
+                });
+            }
+        }, 0, 1000/frames);
 
 //        timer.scheduleAtFixedRate(task, 0, 1000 / 30);
 
-        LCButton.setOnClickListener(new View.OnClickListener() {
+/*        LCButton.setOnClickListener(new View.OnClickListener(){
+
             @Override
             public void onClick(View v) {
                 double price = LC.getPrice();
@@ -80,18 +118,31 @@ public class MainActivity extends AppCompatActivity {
                     LC.getItems();
                     LC.changePrice();
                     cashPerDay.setMoneyPerSec();
-                    cashView.setText(Double.toString(cash));
-                    cashPerDayView.setText(Double.toString(cashPerDay.getMoneyPerSec()));
+                    cashView.setText(df.format(cash));
+                    cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
                 }
             }
         });
-
+*/
     }
 
+    public void LSBuy(View view){
+        double price = LC.getPrice();
+        if(cash < price){
 
+        }
+        else{
+            cash -= price;
+            LC.getItems();
+            LC.changePrice();
+            cashPerDay.setMoneyPerSec();
+            cashView.setText(df.format(cash));
+            cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
+        }
+    }
 
     public class Earnings {
-        double moneyPerSec;
+        private double moneyPerSec;
 
         public double getMoneyPerSec() {
             return moneyPerSec;
@@ -99,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
 
         public void setMoneyPerSec() {
             moneyPerSec = 0;
+            if (LC.getNumOwned() > 0) {
+                moneyPerSec += 0.1 * (Math.pow(1.15, LC.getNumOwned()));
+            }
             if (LS.getNumOwned() > 0) {
                 moneyPerSec += (Math.pow(1.15, LS.getNumOwned()));
             }
@@ -121,16 +175,12 @@ public class MainActivity extends AppCompatActivity {
     TimerTask task = new TimerTask() {
         @Override
         public void run() {
-            cash += (cashPerDay.getMoneyPerSec() / 30);
+
+            cash += (cashPerDay.getMoneyPerSec() / frames);
             cash = ((int) (cash * 100)) / 100.0;
             cashView.setText("Cash: $" + String.format(df.format(cash)));
             cashPerDayView.setText("$" + df.format(cashPerDay.getMoneyPerSec()) + "/day");
         }
     };
 
-/*    public void start()
-    {
-        timer.scheduleAtFixedRate(task, 0, 1000 / 30);
-    }
-*/
 }

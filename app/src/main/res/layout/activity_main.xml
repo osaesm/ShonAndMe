@@ -60,6 +60,7 @@
                 android:background="@color/notEnough"
                 android:drawableBottom="@drawable/loose_change"
                 android:gravity="center"
+                android:onClick="LCBuy"
                 app:layout_constraintLeft_toLeftOf="@+id/cashView"
                 app:layout_constraintTop_toBottomOf="@+id/cashView" />
 
