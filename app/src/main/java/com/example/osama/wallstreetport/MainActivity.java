@@ -72,8 +72,15 @@ public class MainActivity extends AppCompatActivity {
         cashView = (TextView) findViewById(R.id.cashView);
         cashPerDayView = (TextView) findViewById(R.id.cashPerDayView);
 
-        cashView.setText(Double.toString(cash));
-        cashPerDayView.setText(Double.toString(cashPerDay.getMoneyPerSec()));
+        cashView.setText(getString(R.string.cash, df.format(cash)));
+        cashPerDayView.setText(getString(R.string.cashPerDay, df.format(cashPerDay.getMoneyPerSec())));
+        LCButton.setText(getString(R.string.button_price, df.format(LC.getPrice())));
+        LSButton.setText(getString(R.string.button_price, df.format(LS.getPrice())));
+        SBButton.setText(getString(R.string.button_price, df.format(SB.getPrice())));
+        CSButton.setText(getString(R.string.button_price, df.format(CS.getPrice())));
+        sButton.setText(getString(R.string.button_price, df.format(S.getPrice())));
+        HFButton.setText(getString(R.string.button_price, df.format(HF.getPrice())));
+
 
         handler = new Handler();
 
@@ -82,14 +89,50 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 cash += (cashPerDay.getMoneyPerSec()/frames);
                 cash = Double.parseDouble(df.format(cash));
-                cashView.setText("Cash: $" + df.format(cash));
-                cashPerDayView.setText("$" + df.format(cashPerDay.getMoneyPerSec()) + "/day");
+                cashView.setText(getString(R.string.cash, df.format(cash)));
+                cashPerDayView.setText(getString(R.string.cashPerDay, df.format(cashPerDay.getMoneyPerSec())));
+                LCButton.setText(getString(R.string.button_price, df.format(LC.getPrice())));
+                LSButton.setText(getString(R.string.button_price, df.format(LS.getPrice())));
+                SBButton.setText(getString(R.string.button_price, df.format(SB.getPrice())));
+                CSButton.setText(getString(R.string.button_price, df.format(CS.getPrice())));
+                sButton.setText(getString(R.string.button_price, df.format(S.getPrice())));
+                HFButton.setText(getString(R.string.button_price, df.format(HF.getPrice())));
 
-                if(LC.getPrice() >= cash){
-                    LCButton.setBackgroundColor(Color.rgb(part, full, part));
+                if(LC.getPrice() > cash){
+                    LCButton.setBackgroundColor(Color.rgb(full, part, part));
                 }
                 else{
-                    LCButton.setBackgroundColor(Color.rgb(full, part, part));
+                    LCButton.setBackgroundColor(Color.rgb(part, full, part));
+                }
+                if(LS.getPrice() > cash){
+                    LSButton.setBackgroundColor(Color.rgb(full, part, part));
+                }
+                else{
+                    LSButton.setBackgroundColor(Color.rgb(part, full, part));
+                }
+                if(SB.getPrice() > cash){
+                    SBButton.setBackgroundColor(Color.rgb(full, part, part));
+                }
+                else{
+                    SBButton.setBackgroundColor(Color.rgb(part, full, part));
+                }
+                if(CS.getPrice() > cash){
+                    CSButton.setBackgroundColor(Color.rgb(full, part, part));
+                }
+                else{
+                    CSButton.setBackgroundColor(Color.rgb(part, full, part));
+                }
+                if(S.getPrice() > cash){
+                    sButton.setBackgroundColor(Color.rgb(full, part, part));
+                }
+                else{
+                    sButton.setBackgroundColor(Color.rgb(part, full, part));
+                }
+                if(HF.getPrice() > cash){
+                    HFButton.setBackgroundColor(Color.rgb(full, part, part));
+                }
+                else{
+                    HFButton.setBackgroundColor(Color.rgb(part, full, part));
                 }
 
                 handler.postDelayed(this, 1000/frames);
@@ -111,8 +154,9 @@ public class MainActivity extends AppCompatActivity {
                     LC.getItems();
                     LC.changePrice();
                     cashPerDay.setMoneyPerSec();
-                    cashView.setText(df.format(cash));
-                    cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
+                    cashView.setText(getString(R.string.cash, df.format(cash)));
+                    cashPerDayView.setText(getString(R.string.cashPerDay, df.format(cashPerDay.getMoneyPerSec())));
+                    LCButton.setText(getString(R.string.button_price, df.format(LC.getPrice())));
                 }
             }
         });
@@ -216,46 +260,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class Earnings {
-        private double moneyPerSec;
+        private double moneyPerSec = 0;
+
+        private double factor = 1.05;
 
         public double getMoneyPerSec() {
             return moneyPerSec;
         }
 
         public void setMoneyPerSec() {
-            moneyPerSec = 0;
             if (LC.getNumOwned() > 0) {
-                moneyPerSec += 0.1 * (Math.pow(1.15, LC.getNumOwned()));
+                moneyPerSec += 0.1 * (Math.pow(factor, LC.getNumOwned()));
             }
             if (LS.getNumOwned() > 0) {
-                moneyPerSec += (Math.pow(1.15, LS.getNumOwned()));
+                moneyPerSec += (Math.pow(factor, LS.getNumOwned()));
             }
             if (SB.getNumOwned() > 0) {
-                moneyPerSec += 10 * (Math.pow(1.15, SB.getNumOwned()));
+                moneyPerSec += 10 * (Math.pow(factor, SB.getNumOwned()));
             }
             if (CS.getNumOwned() > 0) {
-                moneyPerSec += 100 * (Math.pow(1.15, CS.getNumOwned()));
+                moneyPerSec += 100 * (Math.pow(factor, CS.getNumOwned()));
             }
             if (S.getNumOwned() > 0) {
-                moneyPerSec += 1000 * (Math.pow(1.15, S.getNumOwned()));
+                moneyPerSec += 1000 * (Math.pow(factor, S.getNumOwned()));
             }
             if (HF.getNumOwned() > 0) {
-                moneyPerSec += 10000 * (Math.pow(1.15, HF.getNumOwned()));
+                moneyPerSec += 10000 * (Math.pow(factor, HF.getNumOwned()));
             }
             moneyPerSec = Math.round(moneyPerSec * 100) / 100.0;
         }
     }
-
-    TimerTask task = new TimerTask() {
-        @Override
-        public void run() {
-
-            cash += (cashPerDay.getMoneyPerSec() / frames);
-            cash = ((int) (cash * 100)) / 100.0;
-            cashView.setText("Cash: $" + String.format(df.format(cash)));
-            cashPerDayView.setText("$" + df.format(cashPerDay.getMoneyPerSec()) + "/day");
-        }
-    };
 
     public void Buy(){
         double price = LC.getPrice();

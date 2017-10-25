@@ -120,6 +120,37 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
+                android:id="@+id/ChainStore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:drawableBottom="@drawable/chain_store"
+                android:gravity="center"
+                app:layout_constraintRight_toRightOf="@+id/cashPerDayView"
+                app:layout_constraintTop_toBottomOf="@+id/cashPerDayView" />
+
+            <Button
+                android:id="@+id/Stock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:drawableBottom="@drawable/stock"
+                android:gravity="center"
+                app:layout_constraintRight_toRightOf="@+id/ChainStore"
+                app:layout_constraintTop_toBottomOf="@+id/ChainStore" />
+
+            <Button
                 android:id="@+id/HedgeFund"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,37 +164,6 @@
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="@+id/Stock" />
-
-            <Button
-                android:id="@+id/ChainStore"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:drawableBottom="@drawable/small_business"
-                android:gravity="center"
-                app:layout_constraintRight_toRightOf="@+id/cashPerDayView"
-                app:layout_constraintTop_toBottomOf="@+id/cashPerDayView" />
-
-            <Button
-                android:id="@+id/Stock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_weight="1"
-                android:drawableBottom="@drawable/stock"
-                android:gravity="center"
-                app:layout_constraintRight_toRightOf="@+id/ChainStore"
-                app:layout_constraintTop_toBottomOf="@+id/ChainStore" />
 
         </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.example.osama.wallstreetport;
 public abstract class Items {
     int numOwned;
     double price, originalPrice;
+    double factor = 1.15;
 
     public void getItems() {
         numOwned++;
@@ -18,6 +19,6 @@ public abstract class Items {
     }
 
     public void changePrice() {
-        price = (originalPrice * (Math.pow(1.15, numOwned)));
+        price = (originalPrice * (Math.pow(factor, numOwned)));
     }
 }
