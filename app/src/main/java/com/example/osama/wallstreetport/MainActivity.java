@@ -1,7 +1,6 @@
 package com.example.osama.wallstreetport;
 
 import android.graphics.Color;
-import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 
 
 import java.text.DecimalFormat;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Stock S;
     private HedgeFund HF;
 
-    private double cash;
+    private volatile double cash;
     private Earnings cashPerDay;
 
     private Button LCButton;
@@ -88,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 cash += (cashPerDay.getMoneyPerSec()/frames);
-                cash = Double.parseDouble(df.format(cash));
                 cashView.setText(getString(R.string.cash, df.format(cash)));
                 cashPerDayView.setText(getString(R.string.cashPerDay, df.format(cashPerDay.getMoneyPerSec())));
                 LCButton.setText(getString(R.string.button_price, df.format(LC.getPrice())));
