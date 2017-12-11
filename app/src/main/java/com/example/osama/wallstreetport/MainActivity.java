@@ -1,6 +1,7 @@
 package com.example.osama.wallstreetport;
 
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.i_fall_apart);
+        ring.setLooping(true);
+        ring.start();
+
         LC = new LooseChange();
         LS = new LemonadeShop();
         SB = new SmallBusiness();
@@ -56,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         S = new Stock();
         HF = new HedgeFund();
 
-        cash = 10;
+        cash = 1;
         cashPerDay = new Earnings();
 
         LCButton = (Button) findViewById(R.id.LooseChange);
