@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WallStreetPort.iml" filepath="$PROJECT_DIR$/WallStreetPort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShonAndMe.iml" filepath="$PROJECT_DIR$/ShonAndMe.iml" />
+      <module fileurl="file://C:\Users\shons\AndroidStudioProjects\ShonAndMe\WallStreetPort.iml" filepath="C:\Users\shons\AndroidStudioProjects\ShonAndMe\WallStreetPort.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

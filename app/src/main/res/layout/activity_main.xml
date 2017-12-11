@@ -57,7 +57,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:drawableBottom="@drawable/loose_change"
+                android:drawableBottom="@drawable/mah_boi_jerry"
                 android:gravity="center"
                 android:onClick="Buy"
                 app:layout_constraintLeft_toLeftOf="@+id/cashView"
@@ -73,7 +73,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:drawableBottom="@drawable/lemonade_stand"
+                android:drawableBottom="@drawable/dank_ruthann"
                 android:gravity="center"
                 app:layout_constraintLeft_toLeftOf="@+id/LooseChange"
                 app:layout_constraintTop_toBottomOf="@+id/LooseChange" />
@@ -89,7 +89,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:drawableBottom="@drawable/small_business"
+                android:drawableBottom="@drawable/darren_lim"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@+id/LemonadeStand" />
@@ -129,7 +129,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:drawableBottom="@drawable/hedge_fund"
+                android:drawableBottom="@drawable/your_cookies_were_good"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="@+id/ChainStore" />
@@ -144,7 +144,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:drawableBottom="@drawable/stock"
+                android:drawableBottom="@drawable/the_best_ta"
                 android:gravity="center"
                 app:layout_constraintRight_toRightOf="@+id/cashPerDayView"
                 app:layout_constraintTop_toBottomOf="@+id/cashPerDayView" />
@@ -160,7 +160,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:drawableBottom="@drawable/hedge_fund"
+                android:drawableBottom="@drawable/challen_is_lyfe"
                 android:gravity="center"
                 app:layout_constraintRight_toRightOf="@+id/HedgeFund"
                 app:layout_constraintTop_toBottomOf="@+id/HedgeFund" />
