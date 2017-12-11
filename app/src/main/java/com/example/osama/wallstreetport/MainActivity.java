@@ -44,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
     private final int full = 255;
     private final int part = 204;
+    MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.i_fall_apart);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.i_fall_apart);
         ring.setLooping(true);
         ring.start();
 
@@ -306,5 +306,11 @@ public class MainActivity extends AppCompatActivity {
             cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
         }
     }
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (this.isFinishing()){
+            ring.stop();
+        }
+    }
 }
