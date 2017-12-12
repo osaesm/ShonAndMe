@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Wall Street</string>
+    <string name="app_name">Substantial Request</string>
     <string name="button_price">%1$s kitties</string>
     <string name="cashPerDay">%1$s kitties/ day</string>
     <string name="cash">CryptoKitties: %1$s kitties</string>

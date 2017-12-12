@@ -44,13 +44,15 @@ public class MainActivity extends AppCompatActivity {
 
     private final int full = 255;
     private final int part = 204;
-    MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.i_fall_apart);
+    private MediaPlayer ring;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ring= MediaPlayer.create(MainActivity.this,R.raw.i_fall_apart);
         ring.setLooping(true);
         ring.start();
 
@@ -292,12 +294,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void Buy(){
+    public void Buy() {
         double price = LC.getPrice();
-        if(cash < price){
+        if (cash < price) {
 
-        }
-        else{
+        } else {
             cash -= price;
             LC.getItems();
             LC.changePrice();
@@ -306,11 +307,16 @@ public class MainActivity extends AppCompatActivity {
             cashPerDayView.setText(df.format(cashPerDay.getMoneyPerSec()));
         }
     }
+
     @Override
     protected void onPause() {
         super.onPause();
-        if (this.isFinishing()){
+        if (ring != null){
             ring.stop();
+            if (isFinishing()){
+                ring.stop();
+                ring.release();
+            }
         }
     }
 }
